@@ -1,0 +1,20 @@
+.timeDate {
+  display: flex;
+  flex-direction: row;
+}
+.App-header {
+  margin: 30px;
+  background-color: #161f36;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  font-size: 80px;
+  color: white;
+}
+
+.date {
+  display: flex;
+  flex-direction: row;
+  font-size: 30px;
+  color: #bfbfbf;
+}
