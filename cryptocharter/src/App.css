@@ -18,3 +18,8 @@
   font-size: 30px;
   color: #bfbfbf;
 }
+
+.chartdiv {
+  height: 900px;
+  width: 900px;
+}

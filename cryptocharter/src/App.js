@@ -1,30 +1,40 @@
-import React from 'react';
-import Header from './header.js';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import axios from 'axios';
+import Header from './header.js';
+import Loadscreen from './loadscreen.js';
+import MyChart from './chart.js';
+export default function App() {
+  const [days, setDays] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: undefined,
+  useEffect(() => {
+    setIsLoading(true);
+    const getData = async function() {
+      const fetch = await axios.get(
+        'https://api.coindesk.com/v1/bpi/historical/close.json',
+      );
+      const response = await fetch;
+      for (var element in response.data.bpi) {
+        setDays((days) => [
+          ...days,
+          {
+            day: element,
+            price: response.data.bpi[element],
+          },
+        ]);
+      }
+      setIsLoading(false);
     };
-  }
+    getData();
+  }, []);
 
-  componentDidMount() {
-    axios
-      .get('https://api.coindesk.com/v1/bpi/historical/close.json')
-      .then((response) => {
-        this.setState({
-          data: response.data.bpi,
-        });
-      });
-  }
-
-  render() {
-    console.log(this.state.data);
-    return <Header />;
-  }
+  return isLoading ? (
+    <Loadscreen />
+  ) : (
+    <div>
+      <Header />
+      <MyChart data={days} />
+    </div>
+  );
 }
-
-// export default App;
