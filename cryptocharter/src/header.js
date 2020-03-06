@@ -8,7 +8,7 @@ export default function Header() {
     <div className='App'>
       <div className='timeDate'>
         <header className='App-header'>
-          <p>BitCoin Price Index</p>
+          <p>Crypto Charter</p>
         </header>
         <h2 className='date'>{moment().format('MMMM Do YYYY, h:mm:ss ')}</h2>
       </div>
