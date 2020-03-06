@@ -6,6 +6,7 @@ import Loadscreen from './loadscreen.js';
 import MyChart from './chart.js';
 export default function App() {
   const [days, setDays] = useState([]);
+  const [price, setPrice] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -16,13 +17,8 @@ export default function App() {
       );
       const response = await fetch;
       for (var element in response.data.bpi) {
-        setDays((days) => [
-          ...days,
-          {
-            day: element,
-            price: response.data.bpi[element],
-          },
-        ]);
+        setDays((days) => [...days, element]);
+        setPrice((price) => [...price, response.data.bpi[element]]);
       }
       setIsLoading(false);
     };
@@ -34,7 +30,7 @@ export default function App() {
   ) : (
     <div>
       <Header />
-      <MyChart data={days} />
+      <MyChart days={days} prices={price} />
     </div>
   );
 }

@@ -1,59 +1,84 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
-// import moment from 'moment';
+import moment from 'moment';
 import Chart from 'chart.js';
 import { Line } from 'react-chartjs-2';
-export default function MyChart(props) {
-  const chartRef = React.createRef();
-  console.log(props.data);
-  // useEffect(() => {
-  //   const myChartRef = chartRef.current.getContext('2d');
+import Loadscreen from './loadscreen';
 
-  //   new Chart(myChartRef, {
-  //     type: 'line',
-  //     data: {
-  //       //Bring in data
-  //       labels: ['Jan', 'Feb', 'March'],
-  //       datasets: [
-  //         {
-  //           label: 'Sales',
-  //           data: [86, 67, 91],
-  //         },
-  //       ],
-  //     },
-  //     options: {
-  //       //Customize chart options
-  //     },
-  //   });
-  // }, []);
+export default function MyChart(props) {
+  const [momentdate, updateDate] = useState([]);
+  const [isLoading, setisLoading] = useState(false);
+  const [price, updatePrice] = useState([]);
+
+  useEffect(() => {
+    setisLoading(true);
+    props.days.map((e) =>
+      updateDate((days) => [...days, moment(e).format('MMM Do')]),
+    );
+    props.prices.map((e) =>
+      updatePrice((currentprice) => [...currentprice, `$ ${e}`]),
+    );
+    setisLoading(false);
+  }, []);
+
   const state = {
-    labels: ['January', 'February', 'March', 'April', 'May'],
+    labels: momentdate,
     datasets: [
       {
-        label: 'price',
+        label: '$',
         fill: false,
-        lineTension: 0.5,
-        backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: 'rgba(0,0,0,1)',
+        lineTension: 0,
+        backgroundColor: 'white',
+        borderColor: 'white',
         borderWidth: 2,
-        data: [65, 59, 80, 81, 56],
+        pointBorderColor: 'green',
+        data: props.prices,
       },
     ],
   };
-  return (
+  return isLoading ? (
+    <div>
+      <Loadscreen />
+    </div>
+  ) : (
     <div className='chartdiv'>
       <div>
         <Line
           data={state}
           options={{
+            scales: {
+              yAxes: [
+                {
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Price in $ USD',
+                    fontColor: 'green',
+                    fontSize: 20,
+                  },
+                },
+              ],
+              xAxes: [
+                {
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Price in $ USD',
+                    fontColor: 'green',
+                    fontSize: 20,
+                  },
+                },
+              ],
+            },
+
             title: {
               display: true,
               text: 'BPI (past 30 days)',
               fontSize: 20,
+              color: 'white',
+              fontColor: 'white',
             },
             legend: {
-              display: true,
-              position: 'right',
+              display: false,
+              position: 'top',
             },
           }}
         />
