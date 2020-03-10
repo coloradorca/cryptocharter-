@@ -29,15 +29,15 @@ export default function App() {
       //   setPrice((price) => [...price, responsebpi.data.bpi[element]]);
       // }
       const fetchCoins = await axios.get(
-        `https://api.nomics.com/v1/currencies/sparkline?key=${nomicsKey}&ids=BTC,EOS,ETH,NEO,XRP&start=2020-02-06T00%3A00%3A00Z`,
+        `https://api.nomics.com/v1/currencies/sparkline?key=${nomicsKey}&ids=BTC,EOS,ETH,NEO,XRP,BNB,ZEN,XZC,LINK,BTG&start=2020-02-06T00%3A00%3A00Z`,
       );
       const responseCoins = await fetchCoins;
-      console.log(fetchCoins.data[0].timestamps);
+      console.log(fetchCoins.data);
       fetchCoins.data[0].timestamps.map((e) => setDays((days) => [...days, e]));
-      fetchCoins.data[0].prices.map((e) => setPrice((price) => [...price, e]));
-      fetchCoins.data[1].prices.map((e) => updateeos((eth) => [...eth, e]));
-      fetchCoins.data[3].prices.map((e) => updateneo((neo) => [...neo, e]));
-      fetchCoins.data[4].prices.map((e) => updatexrp((xrp) => [...xrp, e]));
+      fetchCoins.data[1].prices.map((e) => setPrice((price) => [...price, e]));
+      fetchCoins.data[3].prices.map((e) => updateeos((eth) => [...eth, e]));
+      fetchCoins.data[6].prices.map((e) => updateneo((neo) => [...neo, e]));
+      fetchCoins.data[7].prices.map((e) => updatexrp((xrp) => [...xrp, e]));
       fetchCoins.data[2].prices.map((e) =>
         updateethprice((ethp) => [...ethp, e]),
       );

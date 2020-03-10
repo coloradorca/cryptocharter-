@@ -64,16 +64,16 @@ export default function MyChart(props) {
         pointBorderColor: 'green',
         data: props.eos,
       },
-      // {
-      //   label: 'XRP',
-      //   fill: false,
-      //   lineTension: 0,
-      //   backgroundColor: 'blue',
-      //   borderColor: 'blue',
-      //   borderWidth: 2,
-      //   pointBorderColor: 'green',
-      //   data: props.xrp,
-      // },
+      {
+        label: 'XRP',
+        fill: false,
+        lineTension: 0,
+        backgroundColor: 'blue',
+        borderColor: 'blue',
+        borderWidth: 2,
+        pointBorderColor: 'green',
+        data: props.xrp,
+      },
     ],
   };
   return isLoading ? (
@@ -119,7 +119,7 @@ export default function MyChart(props) {
                 {
                   scaleLabel: {
                     display: true,
-                    labelString: 'Price in $ USD',
+                    labelString: 'Date',
                     fontColor: '#61822F',
                     fontSize: 20,
                   },
@@ -129,7 +129,7 @@ export default function MyChart(props) {
 
             title: {
               display: true,
-              text: 'BPI (past 30 days)',
+              text: 'Price Index (past 30 days)',
               fontSize: 20,
               color: '#284282',
               fontColor: '#FFA42B',
